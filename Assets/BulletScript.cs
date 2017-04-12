@@ -19,7 +19,7 @@ public class BulletScript : MonoBehaviour {
 		GameObject.Destroy (this.gameObject);
 	}
 
-	public float damageValue = 15;
+	public float damageValue;
 
 	void OnTriggerEnter(Collider other){
 			other.gameObject.SendMessage ("Hit", damageValue);

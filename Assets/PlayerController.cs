@@ -19,10 +19,13 @@ public class PlayerController : MonoBehaviour {
 	public GameUIManager uiManager;
 	public int hp = 100;
 	private int changegun = 1;
+	private AudioSource paceSound;
+	float count = 0.5f;
 
 	// Use this for initialization
 	void Start () {
 		animatorController = this.GetComponent<Animator> ();
+		paceSound = this.GetComponent<AudioSource> ();
 	}
 
 	public void Hit(int value){
@@ -90,6 +93,15 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.Space) && JumpSensor.IsCanJump ()) {
 			velocity.y = JumpSpeed;
+		}
+
+
+		if (velocity.x != 0 || velocity.z != 0) {
+			if (count <= 0) {
+				paceSound.Play ();
+				count = 0.5f;
+			}
+			count -= Time.deltaTime;
 		}
 
 		rigidBody.velocity = velocity;
